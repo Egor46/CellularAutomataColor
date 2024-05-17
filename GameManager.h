@@ -12,7 +12,7 @@ public:
 
 	GameManager() {
 		InitWindow(sW, sH, "Game");
-		SetTargetFPS(60);
+		SetTargetFPS(120);
 	}
 
 	~GameManager() {

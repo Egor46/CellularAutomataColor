@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="CellularAutomata.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MainGameScreen.cpp" />
@@ -143,6 +142,9 @@
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="ScreenHandler.h" />
     <ClInclude Include="SpawnerScreen.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

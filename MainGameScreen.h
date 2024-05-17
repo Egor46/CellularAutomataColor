@@ -1,19 +1,19 @@
 #pragma once
 #include "Board.h"
 #include <raylib.h>
-#include "SpawnerScreen.h"
 
 class MainGameScreen
 {
 private:
-	
-	Board board;
 
+	std::mt19937 mt;
+	std::uniform_int_distribution<int> Rand;
+	std::vector<Color> prevup;
+	Color prevleft;
 	MainGameScreen() {
 
 	}
 	bool started = false;
-	SpawnerScreen sw = SpawnerScreen();
 
 public:
 

@@ -1,35 +1,49 @@
 #pragma once
 #include <vector>
 #include <raylib.h>
+#include <random>
 
-enum CELL_COLORS {
-	CRED, CGREEN, CBLUE, CPURPLE, CMAGENTA, CBLACK, CWHITE, CCYAN
-};
-
-class Board
+class MyBoard
 {
 private:
 	int x, y;
 	const int colorcount = 8;
 public:
-	std::vector<std::vector<CELL_COLORS>> board;
+	std::vector<std::vector<Color>> board;
+	std::vector<Color> colors;
 
-	Board() {
+	MyBoard() {
 		x = y = 0;
 	}
 
-	Board& operator=(const Board&& other) noexcept {
+	int getX() const { return x; }
+	int getY() const { return y; }
+
+	MyBoard& operator=(const MyBoard&& other) noexcept {
 		board = other.board;
+		x = other.x;
+		colors = other.colors;
+		y = other.y;
 		return *this;
 	}
 
-	Board(int _x, int _y) {
-		x = _x;
-		y = _y;
-		board.resize(_x);
-		for (int i = 0; i < _x; i++) {
-			board[i].resize(_y);
+	MyBoard(int _x, int _y) {
+		x = _x + 2;
+		y = _y + 2;
+		board.resize(x);
+		for (int i = 0; i < x; i++) {
+			board[i].resize(y);
 		}
+		for (int i = 0; i < y; i++) {
+			board[0][i] = board[x - 1][i] = BLACK;
+		}
+		for (int i = 0; i < x; i++) {
+			board[i][0] = board[i][y - 1] = BLACK;
+		}
+
+		std::mt19937 mt;
+		std::uniform_int_distribution<int> ra(0, 255);
+		for (int i = 0; i < colorcount; i++) colors.push_back(Color{ (uint8_t)ra(mt), (uint8_t)ra(mt), (uint8_t)ra(mt), 255 });
 	}
 };
 
