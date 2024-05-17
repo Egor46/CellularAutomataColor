@@ -79,6 +79,7 @@ void SpawnerScreen::Draw()
 	if (rg::GuiButton({ sW / 2 - 100, (float)GetScreenHeight() - 50, 200, 50 }, "Settings")) {
 		SettingsScreen::getInstance().settings = true;
 	}
+	if (rg::GuiButton({ 0,0, 100, 50 }, "Menu")) ScreenHandler::getInstance().changeScreen(MAIN);
 }
 
 void SpawnerScreen::Update()

@@ -135,6 +135,9 @@ void SettingsScreen::Tick() {
 
 	if (rg2::GuiButton({ (float)GetScreenWidth() / 2 - 100, (float)GetScreenHeight() - margin - 75, 200, 75 }, "BACK")) {
 		settings = false;
+		ScreenHandler::getInstance().simMode = neighboors_eight ? EIGHT_NEIGHBOORS : FOUR_NEIGHBOORS;
+		ScreenHandler::getInstance().mut = mutations;
+		ScreenHandler::getInstance().selfD = self_destruction;
 		ScreenHandler::getInstance().mut_chance = mut_chance;
 	}
 }
