@@ -41,7 +41,14 @@ public:
 			board[i][0] = board[i][y - 1] = BLACK;
 		}
 
-		std::mt19937 mt;
+		for (int i = 1; i < x-1; i++) {
+			for (int j = 1; j < y-1; j++) {
+				board[i][j] = WHITE;
+			}
+		}
+
+		std::random_device rand;
+		std::mt19937 mt(rand());
 		std::uniform_int_distribution<int> ra(0, 255);
 		for (int i = 0; i < colorcount; i++) colors.push_back(Color{ (uint8_t)ra(mt), (uint8_t)ra(mt), (uint8_t)ra(mt), 255 });
 	}

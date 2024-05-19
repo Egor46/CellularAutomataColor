@@ -93,7 +93,8 @@ void MainScreen::Update()
 			else if (x != "" && y != "") {
 				if (CheckCollisionPointRec(mp, startButton)) {
 					int a = std::stoi(x), b = std::stoi(y);
-					if (a != 0 && b != 0) {
+					if (a > 1 && b > 1) {
+						SettingsScreen::getInstance().started = true;
 						ScreenHandler::getInstance().simMode = SettingsScreen::getInstance().getNeigbMode() ? EIGHT_NEIGHBOORS : FOUR_NEIGHBOORS;
 						ScreenHandler::getInstance().mut = SettingsScreen::getInstance().getMutateMode();
 						ScreenHandler::getInstance().selfD = SettingsScreen::getInstance().getSelfDesMode();
@@ -115,30 +116,28 @@ void SettingsScreen::Tick() {
 	ClearBackground({ 0xbb,0xbb,0xbb, 0xff });
 
 	Rectangle rec{ margin, margin, checkBoxSize, checkBoxSize };
-	if (rg2::GuiCheckBox(rec, "8 Neighboors", &neighboors_eight) == 1) {
-		ScreenHandler::getInstance().simMode = ScreenHandler::getInstance().simMode == EIGHT_NEIGHBOORS ? FOUR_NEIGHBOORS : EIGHT_NEIGHBOORS;
+	if (!started) {
+		rg2::GuiCheckBox(rec, "8 Neighboors", &neighboors_eight);
+		rec.y += margin;
 	}
+	rg2::GuiCheckBox(rec, "Cell Self-destruct", &self_destruction);
 	rec.y += margin;
-	if (rg2::GuiCheckBox(rec, "Cell Self-destruct", &self_destruction) == 1) {
-		ScreenHandler::getInstance().selfD = !ScreenHandler::getInstance().selfD;
-	}
-	rec.y += margin;
-	if (rg2::GuiCheckBox(rec, "Mutations", &mutations) == 1) {
-		ScreenHandler::getInstance().mut = !ScreenHandler::getInstance().mut;
-	}
+	rg2::GuiCheckBox(rec, "Mutations", &mutations);
 	if (mutations) {
 		Rectangle r = rec;
 		r.y += margin;
 		r.width += 4 * margin;
 		rg2::GuiSlider(r, "", ("Mutation chance (" + std::to_string(mut_chance).substr(0, 4) + ")").c_str(), &mut_chance, 0, 1);
+		rec.y += 2 * margin;
+		rg2::GuiCheckBox(rec, "Random mutations", &randomMutations);
 	}
 
 	if (rg2::GuiButton({ (float)GetScreenWidth() / 2 - 100, (float)GetScreenHeight() - margin - 75, 200, 75 }, "BACK")) {
 		settings = false;
-		ScreenHandler::getInstance().simMode = neighboors_eight ? EIGHT_NEIGHBOORS : FOUR_NEIGHBOORS;
 		ScreenHandler::getInstance().mut = mutations;
 		ScreenHandler::getInstance().selfD = self_destruction;
 		ScreenHandler::getInstance().mut_chance = mut_chance;
+		ScreenHandler::getInstance().random_mutations = randomMutations;
 	}
 }
 

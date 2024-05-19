@@ -50,7 +50,7 @@ void MainGameScreen::Draw()
 static bool reroll;
 
 inline Color average(const Color& c1, const Color& c2) {
-	unsigned char r = c1.r / 2 + c2.r, g = c1.g / 2 + c2.g / 2, b = c1.b / 2 + c2.b / 2;
+	unsigned char r = c1.r / 2 + c2.r / 2, g = c1.g / 2 + c2.g / 2, b = c1.b / 2 + c2.b / 2;
 	return { r, g, b, 0xff };
 }
 void MainGameScreen::Update()
@@ -102,7 +102,12 @@ void MainGameScreen::Update()
 					if (ScreenHandler::getInstance().mut) {
 						double de = _rrnd(mt);
 						if (de < ScreenHandler::getInstance().mut_chance) {
-							c = average(_board.board[i][j], c);
+							if (ScreenHandler::getInstance().random_mutations) {
+								uid tmp(0, 255);
+								unsigned char r = tmp(mt), g = tmp(mt), b = tmp(mt);
+								c = { r, g, b, 0xff };
+							}
+							else c = average(_board.board[i][j], c);
 						}
 					}
 					cell = c;

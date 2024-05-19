@@ -80,6 +80,8 @@ void SpawnerScreen::Draw()
 		SettingsScreen::getInstance().settings = true;
 	}
 	if (rg::GuiButton({ 0,0, 100, 50 }, "Menu")) ScreenHandler::getInstance().changeScreen(MAIN);
+
+	if (rg::GuiButton({ sW - 50, sH / 2 - 25, 50 , 50 }, ">")) ScreenHandler::getInstance().mg.Update();
 }
 
 void SpawnerScreen::Update()

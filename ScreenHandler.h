@@ -20,6 +20,7 @@ enum SIM_MODE {
 class ScreenHandler
 {
 	friend class MainScreen;
+	friend class SpawnerScreen;
 private:
 	SCREEN currentScreen = MAIN;
 	MainGameScreen& mg = MainGameScreen::getInstance();
@@ -33,12 +34,14 @@ public:
 
 	SIM_MODE simMode = FOUR_NEIGHBOORS;
 	bool mut;
+	bool random_mutations;
 	double mut_chance;
 	bool selfD;
 
 	MyBoard gameBoard;
 
 	void changeScreen(SCREEN scr) {
+		if (scr == MAIN) SettingsScreen::getInstance().started = false;
 		currentScreen = scr;
 	}
 

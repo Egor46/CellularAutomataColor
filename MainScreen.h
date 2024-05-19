@@ -31,6 +31,7 @@ public:
 class SettingsScreen
 {
 	SettingsScreen();
+	bool randomMutations = false;
 	bool neighboors_eight = false;
 	bool self_destruction = true;
 	bool mutations = false;
@@ -38,6 +39,7 @@ class SettingsScreen
 public:
 
 	bool settings = false;
+	bool started = false;
 
 	static SettingsScreen& getInstance() {
 		static SettingsScreen inst;
